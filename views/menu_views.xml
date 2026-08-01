@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_waf_root" name="WAF Security" sequence="5"
+              groups="group_waf_viewer"/>
+
+    <menuitem id="menu_waf_dashboard" name="Dashboard" parent="menu_waf_root"
+              action="action_waf_dashboard" sequence="1"/>
+
+    <menuitem id="menu_waf_log" name="Audit Log" parent="menu_waf_root"
+              action="action_waf_log" sequence="2"/>
+
+    <menuitem id="menu_waf_ip_rule" name="IP Whitelist/Blacklist" parent="menu_waf_root"
+              action="action_waf_ip_rule" sequence="3" groups="group_waf_manager"/>
+
+    <menuitem id="menu_waf_config" name="Konfigurasi" parent="menu_waf_root"
+              action="action_waf_config" sequence="4" groups="group_waf_manager"/>
+</odoo>

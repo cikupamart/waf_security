@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="waf_config_default" model="waf.config">
+        <field name="name">Default WAF Configuration</field>
+        <field name="active">True</field>
+        <field name="block_mode">block</field>
+        <field name="enable_sql_injection_detection">True</field>
+        <field name="enable_xss_detection">True</field>
+        <field name="enable_rce_detection">True</field>
+        <field name="enable_path_traversal_detection">True</field>
+        <field name="enable_rate_limiting">True</field>
+        <field name="rate_limit_requests">100</field>
+        <field name="rate_limit_window">60</field>
+        <field name="enable_brute_force_protection">True</field>
+        <field name="brute_force_max_attempts">5</field>
+        <field name="brute_force_window">300</field>
+        <field name="auto_ban_enabled">True</field>
+        <field name="auto_ban_duration_hours">24</field>
+        <field name="auto_ban_threshold">3</field>
+        <field name="enable_security_headers">True</field>
+        <field name="enable_hsts">True</field>
+        <field name="enable_csp">True</field>
+        <field name="enable_x_frame_options">True</field>
+        <field name="x_frame_options_value">SAMEORIGIN</field>
+        <field name="log_retention_days">90</field>
+    </record>
+</odoo>
