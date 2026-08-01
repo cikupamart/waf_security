@@ -4,6 +4,8 @@
     'version': '16.0.3..0',
     'category': 'Tools',
     'summary': 'Web Application Firewall untuk Odoo 16',
+    'price': 20.99,
+    'currency': 'EUR',
     'description': """
 
 WAF Security for Odoo 16
