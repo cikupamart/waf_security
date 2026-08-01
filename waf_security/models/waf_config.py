@@ -90,6 +90,50 @@ class WafConfig(models.Model):
         string='Path yang Dikecualikan (satu per baris)',
         default='/web/static\n/websocket\n/longpolling\n/web/webclient\n/web/assets')
 
+    # --- Subscription Monitor ---
+    # Disimpan langsung sebagai field di sini (bukan lewat res.config.settings)
+    # supaya tidak perlu inherit ke view Settings umum Odoo yang strukturnya
+    # berbeda-beda antar versi/instalasi.
+    subscription_monitor_enabled = fields.Boolean(
+        string='Aktifkan Subscription Monitor', default=False,
+        help='Jika aktif, ringkasan data instance ini akan dikirim berkala '
+             'ke dashboard yang dikonfigurasi di bawah.')
+    subscription_monitor_api_url = fields.Char(string='URL Dashboard (API Endpoint)')
+    subscription_monitor_api_key = fields.Char(string='API Key')
+    subscription_monitor_manual_expiration_date = fields.Char(
+        string='Tanggal Kadaluarsa Manual (untuk Community)',
+        help='Diisi manual jika instance ini Community (tidak punya field '
+             'expiration Enterprise bawaan Odoo). Format: YYYY-MM-DD')
+    subscription_monitor_include_user_list = fields.Boolean(
+        string='Sertakan Daftar User (Nama, Login, Login Terakhir)', default=False,
+        help='NONAKTIF secara default. Jika diaktifkan, data yang dikirim '
+             'akan menyertakan daftar user internal beserta nama, login, dan '
+             'waktu login terakhir mereka - ini termasuk data pribadi (PII). '
+             'Pastikan sudah sesuai kebijakan privasi organisasi Anda sebelum '
+             'mengaktifkan opsi ini.')
+    subscription_monitor_instance_uuid = fields.Char(
+        string='Instance UUID', compute='_compute_subscription_monitor_instance_uuid',
+        help='Identifier unik & permanen untuk instance ini di dashboard.')
+
+    def _compute_subscription_monitor_instance_uuid(self):
+        uid = self.env['waf.subscription.monitor']._get_instance_uuid()
+        for rec in self:
+            rec.subscription_monitor_instance_uuid = uid
+
+    def action_subscription_monitor_sync_now(self):
+        self.ensure_one()
+        self.env['waf.subscription.monitor'].sync_now(raise_on_error=True)
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'WAF Subscription Monitor',
+                'message': 'Data berhasil dikirim ke dashboard.',
+                'type': 'success',
+                'sticky': False,
+            },
+        }
+
     @api.model
     def get_active_config(self):
         """Ambil konfigurasi aktif (singleton pattern sederhana)."""

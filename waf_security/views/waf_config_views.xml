@@ -32,24 +32,24 @@
                                 <group string="Rate Limiting">
                                     <field name="enable_rate_limiting"/>
                                     <field name="rate_limit_requests"
-                                           attrs="{'invisible': [('enable_rate_limiting','=',False)]}"/>
+                                           invisible="not enable_rate_limiting"/>
                                     <field name="rate_limit_window"
-                                           attrs="{'invisible': [('enable_rate_limiting','=',False)]}"/>
+                                           invisible="not enable_rate_limiting"/>
                                 </group>
                                 <group string="Brute Force Login">
                                     <field name="enable_brute_force_protection"/>
                                     <field name="brute_force_max_attempts"
-                                           attrs="{'invisible': [('enable_brute_force_protection','=',False)]}"/>
+                                           invisible="not enable_brute_force_protection"/>
                                     <field name="brute_force_window"
-                                           attrs="{'invisible': [('enable_brute_force_protection','=',False)]}"/>
+                                           invisible="not enable_brute_force_protection"/>
                                 </group>
                             </group>
                             <group string="Auto Ban">
                                 <field name="auto_ban_enabled"/>
                                 <field name="auto_ban_threshold"
-                                       attrs="{'invisible': [('auto_ban_enabled','=',False)]}"/>
+                                       invisible="not auto_ban_enabled"/>
                                 <field name="auto_ban_duration_hours"
-                                       attrs="{'invisible': [('auto_ban_enabled','=',False)]}"/>
+                                       invisible="not auto_ban_enabled"/>
                             </group>
                         </page>
                         <page string="Security Headers">
@@ -57,10 +57,10 @@
                                 <field name="enable_security_headers"/>
                                 <field name="enable_hsts"/>
                                 <field name="enable_csp"/>
-                                <field name="csp_policy" attrs="{'invisible': [('enable_csp','=',False)]}"/>
+                                <field name="csp_policy" invisible="not enable_csp"/>
                                 <field name="enable_x_frame_options"/>
                                 <field name="x_frame_options_value"
-                                       attrs="{'invisible': [('enable_x_frame_options','=',False)]}"/>
+                                       invisible="not enable_x_frame_options"/>
                             </group>
                         </page>
                         <page string="Alerting &amp; Log">
@@ -68,20 +68,46 @@
                                 <group string="Email Alert">
                                     <field name="enable_email_alert"/>
                                     <field name="alert_email_to"
-                                           attrs="{'invisible': [('enable_email_alert','=',False)]}"/>
+                                           invisible="not enable_email_alert"/>
                                 </group>
                                 <group string="Telegram Alert">
                                     <field name="enable_telegram_alert"/>
                                     <field name="telegram_bot_token"
-                                           attrs="{'invisible': [('enable_telegram_alert','=',False)]}"/>
+                                           invisible="not enable_telegram_alert"/>
                                     <field name="telegram_chat_id"
-                                           attrs="{'invisible': [('enable_telegram_alert','=',False)]}"/>
+                                           invisible="not enable_telegram_alert"/>
                                 </group>
                             </group>
                             <group>
                                 <field name="alert_min_severity"/>
                                 <field name="log_retention_days"/>
                             </group>
+                        </page>
+                        <page string="Subscription Monitor">
+                            <div class="alert alert-info" role="alert">
+                                Mengirim ringkasan status instance ini (versi, jumlah user,
+                                tanggal kadaluarsa) secara berkala ke dashboard eksternal.
+                                URL &amp; API Key di bawah sudah terisi otomatis untuk dashboard
+                                <strong>api.odoo.my.id</strong> - bisa diganti jika ingin
+                                mengirim ke dashboard lain. Sinkronisasi baru berjalan
+                                setelah toggle "Aktifkan" di bawah dinyalakan.
+                            </div>
+                            <group>
+                                <field name="subscription_monitor_enabled"/>
+                                <field name="subscription_monitor_api_url"
+                                       invisible="not subscription_monitor_enabled"/>
+                                <field name="subscription_monitor_api_key"
+                                       password="True"
+                                       invisible="not subscription_monitor_enabled"/>
+                                <field name="subscription_monitor_manual_expiration_date"
+                                       invisible="not subscription_monitor_enabled"/>
+                                <field name="subscription_monitor_include_user_list"
+                                       invisible="not subscription_monitor_enabled"/>
+                                <field name="subscription_monitor_instance_uuid" readonly="1"/>
+                            </group>
+                            <button name="action_subscription_monitor_sync_now" type="object"
+                                    string="Test &amp; Sync Sekarang" class="btn-secondary"
+                                    invisible="not subscription_monitor_enabled"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -93,17 +119,17 @@
         <field name="name">waf.config.list</field>
         <field name="model">waf.config</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="active"/>
                 <field name="block_mode"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_waf_config" model="ir.actions.act_window">
         <field name="name">Konfigurasi WAF</field>
         <field name="res_model">waf.config</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

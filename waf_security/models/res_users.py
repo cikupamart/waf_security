@@ -13,11 +13,29 @@ _logger = logging.getLogger(__name__)
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
+    # ------------------------------------------------------------------
+    # CATATAN PORTING KE ODOO 18:
+    # Signature `_login()` berbasis credential dict (diperkenalkan di Odoo
+    # 17) sepengetahuan kami masih sama di Odoo 18.0:
+    #   _login(cls, db, credential, user_agent_env=None)
+    # di mana `credential` adalah dict, mis. {'login': ..., 'password': ...,
+    # 'type': 'password'}.
+    #
+    # Karena ini menyentuh inti mekanisme login dan detail internal seperti
+    # ini bisa berubah antar minor release, WAJIB diuji manual di staging
+    # sebelum production: login sukses, login gagal berkali-kali (pastikan
+    # ter-log & ter-ban sesuai threshold), dan pastikan login via API key/
+    # XML-RPC (credential type lain) tetap berfungsi normal. Kalau instalasi
+    # Odoo 18 Anda memakai signature berbeda dari yang diasumsikan di sini,
+    # cek `res.users._login` di source Odoo versi Anda dan sesuaikan.
+    # ------------------------------------------------------------------
     @classmethod
-    def _login(cls, db, login, password, user_agent_env=None):
-        """Bungkus proses login (signature Odoo 16) untuk melacak percobaan
-        login gagal per IP, dan blokir preemptif jika sudah melewati ambang
-        batas brute force."""
+    def _login(cls, db, credential, user_agent_env=None):
+        """Bungkus proses login (signature credential-based, Odoo 17/18) untuk
+        melacak percobaan login gagal per IP, dan blokir preemptif jika
+        sudah melewati ambang batas brute force."""
+        login = credential.get('login') if isinstance(credential, dict) else None
+
         ip = 'unknown'
         try:
             if request:
@@ -47,7 +65,7 @@ class ResUsers(models.Model):
             _logger.exception("WAF: gagal memeriksa status brute force")
 
         try:
-            result = super()._login(db, login, password, user_agent_env=user_agent_env)
+            result = super()._login(db, credential, user_agent_env=user_agent_env)
             login_failure_tracker.reset(ip)
             return result
         except AccessDenied:

@@ -12,6 +12,15 @@ _logger = logging.getLogger(__name__)
 
 MAX_BODY_SCAN_BYTES = 200_000  # jangan scan body raksasa (misal upload file besar)
 
+# CATATAN PORTING KE ODOO 18:
+# Override `_dispatch(cls, endpoint)` sebagai classmethod pada `ir.http`
+# adalah extension point yang sudah stabil sejak beberapa versi Odoo
+# terakhir, dan sepengetahuan kami masih berlaku sama di Odoo 18.0.
+# Namun karena ini titik masuk SEMUA request HTTP Odoo, tetap WAJIB
+# diuji di staging setelah install: buka beberapa halaman utama
+# (login, backend, website jika dipakai), pastikan tidak ada request
+# normal yang ikut ter-blokir, sebelum dipakai di production.
+
 
 class IrHttp(models.AbstractModel):
     _inherit = 'ir.http'

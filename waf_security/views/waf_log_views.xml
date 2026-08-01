@@ -4,7 +4,7 @@
         <field name="name">waf.log.list</field>
         <field name="model">waf.log</field>
         <field name="arch" type="xml">
-            <tree string="Audit Log WAF" decoration-danger="severity=='critical'"
+            <list string="Audit Log WAF" decoration-danger="severity=='critical'"
                   decoration-warning="severity=='high'" create="false" edit="false">
                 <field name="create_date" string="Waktu"/>
                 <field name="ip_address"/>
@@ -18,7 +18,7 @@
                        decoration-danger="action_taken=='blocked'"
                        decoration-success="action_taken=='banned'"/>
                 <field name="source_field"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -103,7 +103,7 @@
     <record id="action_waf_log" model="ir.actions.act_window">
         <field name="name">Audit Log WAF</field>
         <field name="res_model">waf.log</field>
-        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="view_mode">list,form,graph,pivot</field>
         <field name="context">{'search_default_filter_today': 0}</field>
     </record>
 </odoo>

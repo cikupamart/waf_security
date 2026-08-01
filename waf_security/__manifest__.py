@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'WAF Security - Web Application Firewall',
-    'version': '16.0.3..0',
+    'version': '18.0.1.0.0',
     'category': 'Tools',
-    'summary': 'Web Application Firewall untuk Odoo 16',
-    'price': 20.99,
-    'currency': 'EUR',
+    'summary': 'Web Application Firewall untuk Odoo 18 ',
     'description': """
-
-WAF Security for Odoo 16
+WAF Security for Odoo 18
 =========================
-Modul  untuk mempelajari konsep Web Application Firewall (WAF)
+Modul Web Application Firewall (WAF)
 yang terintegrasi langsung di dalam Odoo.
 
 Fitur:
@@ -34,7 +31,7 @@ Fitur:
 
 CATATAN PENTING (untuk pembelajaran):
 --------------------------------------
-Modul ini adalah alat bantu untuk memahami
+Modul ini adalah untuk memahami
 cara kerja WAF berbasis signature/regex. Modul ini BUKAN pengganti WAF
 production-grade (seperti ModSecurity, Cloudflare WAF, AWS WAF, dsb).
 Untuk deployment production sesungguhnya, tetap gunakan WAF di layer
@@ -63,7 +60,6 @@ sebelum mengaktifkannya.
         'views/waf_ip_rule_views.xml',
         'views/waf_dashboard_views.xml',
         'views/waf_subscription_monitor_views.xml',
-        'views/res_config_settings_views.xml',
         'views/menu_views.xml',
     ],
     'installable': True,

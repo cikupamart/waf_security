@@ -4,13 +4,13 @@
         <field name="name">waf.subscription.log.tree</field>
         <field name="model">waf.subscription.log</field>
         <field name="arch" type="xml">
-            <tree string="Log Subscription Monitor" create="false" edit="false"
+            <list string="Log Subscription Monitor" create="false" edit="false"
                   decoration-danger="state=='error'" decoration-success="state=='success'">
                 <field name="create_date" string="Waktu"/>
                 <field name="state" widget="badge"/>
                 <field name="http_status"/>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -39,6 +39,6 @@
     <record id="action_waf_subscription_log" model="ir.actions.act_window">
         <field name="name">Log Subscription Monitor</field>
         <field name="res_model">waf.subscription.log</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>
