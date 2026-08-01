@@ -9,4 +9,17 @@
         <field name="interval_type">days</field>
         <field name="active">True</field>
     </record>
+
+    <record id="cron_waf_subscription_sync" model="ir.cron">
+        <field name="name">WAF: Sync Subscription Monitor</field>
+        <field name="model_id" ref="model_waf_subscription_monitor"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_sync()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <!-- Nonaktif secara default. Aktifkan hanya setelah Anda mengaktifkan
+             dan mengonfigurasi Subscription Monitor di Settings > WAF Security,
+             dan memahami data apa yang akan dikirim (lihat README.md). -->
+        <field name="active">False</field>
+    </record>
 </odoo>

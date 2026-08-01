@@ -1,6 +1,6 @@
-# WAF Security untuk Odoo 16 
+# WAF Security untuk Odoo 16
 
-Modul ini dibuat untuk tujuan Web Application
+Modul ini dibuat untuk Web Application
 Firewall (WAF) yang terintegrasi langsung di dalam aplikasi Odoo.
 
 ## Cara Instalasi
@@ -63,7 +63,11 @@ Firewall (WAF) yang terintegrasi langsung di dalam aplikasi Odoo.
 * Uji coba pattern SQLi/XSS/dsb sebaiknya dilakukan di environment
   development/lab milik sendiri, bukan sistem produksi orang lain.
 
-## Contoh Skenario Latihan untuk Murid
+## Fitur Tambahan (Opsional, OFF Secara Default)
+
+
+
+## Contoh Skenario test
 
 1. Coba akses `/web?x=<script>alert(1)</script>` pada instance dev lokal,
    lihat apakah tercatat di Audit Log sebagai `xss`.

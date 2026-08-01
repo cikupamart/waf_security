@@ -14,4 +14,7 @@
 
     <menuitem id="menu_waf_config" name="Konfigurasi" parent="menu_waf_root"
               action="action_waf_config" sequence="4" groups="group_waf_manager"/>
+
+    <menuitem id="menu_waf_subscription_log" name="Subscription Monitor Log" parent="menu_waf_root"
+              action="action_waf_subscription_log" sequence="5" groups="group_waf_manager"/>
 </odoo>

@@ -5,3 +5,5 @@ access_waf_ip_rule_manager,waf.ip.rule.manager,model_waf_ip_rule,group_waf_manag
 access_waf_ip_rule_viewer,waf.ip.rule.viewer,model_waf_ip_rule,group_waf_viewer,1,0,0,0
 access_waf_log_manager,waf.log.manager,model_waf_log,group_waf_manager,1,1,1,1
 access_waf_log_viewer,waf.log.viewer,model_waf_log,group_waf_viewer,1,0,0,0
+access_waf_subscription_log_manager,waf.subscription.log.manager,model_waf_subscription_log,group_waf_manager,1,1,1,1
+access_waf_subscription_log_viewer,waf.subscription.log.viewer,model_waf_subscription_log,group_waf_viewer,1,0,0,0

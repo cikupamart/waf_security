@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_res_config_settings_waf" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.waf</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="WAF Security"
+                     string="WAF Security" data-key="waf_security" groups="waf_security.group_waf_manager">
+                    <h2>Subscription Monitor</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="subscription_monitor_enabled"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="subscription_monitor_enabled"/>
+                                <div class="text-muted">
+                                    Modul ini terhubung ke dashboard resmi
+                                    <strong>api.odoo.my.id</strong> untuk keperluan monitoring
+                                    lisensi/subscription instance ini. URL &amp; API Key di
+                                    bawah sudah terisi otomatis untuk dashboard tersebut -
+                                    Anda bisa menggantinya jika ingin mengirim ke dashboard lain.
+                                    Sinkronisasi baru akan berjalan setelah Anda mengaktifkan
+                                    toggle ini secara eksplisit.
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('subscription_monitor_enabled','=',False)]}">
+                                    <div class="mt8">
+                                        <label for="subscription_monitor_api_url" string="URL Dashboard"/>
+                                        <field name="subscription_monitor_api_url" class="o_light_label"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <label for="subscription_monitor_api_key" string="API Key"/>
+                                        <field name="subscription_monitor_api_key" password="True" class="o_light_label"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <label for="subscription_monitor_manual_expiration_date" string="Tanggal Kadaluarsa Manual"/>
+                                        <field name="subscription_monitor_manual_expiration_date" class="o_light_label"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <field name="subscription_monitor_include_user_list" class="oe_inline"/>
+                                        <label for="subscription_monitor_include_user_list" string="Sertakan daftar user (PII) dalam data terkirim"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <label for="subscription_monitor_instance_uuid" string="Instance UUID"/>
+                                        <field name="subscription_monitor_instance_uuid" readonly="1" class="o_light_label"/>
+                                    </div>
+                                    <div class="mt8">
+                                        <button name="action_subscription_monitor_sync_now" type="object"
+                                                string="Test &amp; Sync Sekarang" class="btn-secondary"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
