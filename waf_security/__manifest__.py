@@ -6,6 +6,7 @@
     'summary': 'Web Application Firewall untuk Odoo 16 (Educational Purpose)',
     'price': 20.99,
     'currency': 'EUR',
+    'images': ['static/description/dashboard'],
     'description': """
 
 WAF Security for Odoo 16
