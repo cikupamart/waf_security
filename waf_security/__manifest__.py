@@ -4,7 +4,7 @@
     'version': '18.0.1.0.0',
     'category': 'Tools',
     'summary': 'Web Application Firewall untuk Odoo 18 ',
-    'price': 19.9,
+    'price': 4.9,
     'currency': 'EUR',
     'description': """
 WAF Security for Odoo 18
