@@ -4,7 +4,7 @@
     'version': '16.0.3..0',
     'category': 'Tools',
     'summary': 'Web Application Firewall untuk Odoo 16',
-    'price': 20.99,
+    'price': 4.99,
     'currency': 'EUR',
     'description': """
 
